@@ -1,0 +1,125 @@
+/* =========================
+   TRANSICIÓN DÍA → NOCHE
+   ========================= */
+body {
+  animation: dayNight 60s linear infinite;
+}
+
+@keyframes dayNight {
+  0% {
+    filter: brightness(1.05) saturate(1.1);
+  }
+  40% {
+    filter: brightness(1) saturate(1);
+  }
+  70% {
+    filter: brightness(0.8) saturate(0.9);
+  }
+  100% {
+    filter: brightness(1.05) saturate(1.1);
+  }
+}
+
+/* =========================
+   CAPA DE CIELO DINÁMICO
+   ========================= */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(
+    circle at top,
+    rgba(255,180,200,0.15),
+    rgba(20,22,43,0.85)
+  );
+  animation: skyShift 60s linear infinite;
+  z-index: 0;
+  pointer-events: none;
+}
+
+@keyframes skyShift {
+  0% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0.4;
+  }
+}
+
+/* =========================
+   COMETAS ALEATORIOS
+   ========================= */
+.comet {
+  top: calc(-150px + 300px * var(--randY));
+  left: -400px;
+  animation-duration: calc(10s + 8s * var(--randSpeed));
+  animation-delay: calc(-5s * var(--randDelay));
+}
+
+.comet:nth-child(1) {
+  --randY: 0.2;
+  --randSpeed: 0.3;
+  --randDelay: 0.2;
+}
+
+.comet:nth-child(2) {
+  --randY: 0.6;
+  --randSpeed: 0.6;
+  --randDelay: 0.5;
+}
+
+.comet:nth-child(3) {
+  --randY: 0.9;
+  --randSpeed: 0.9;
+  --randDelay: 0.8;
+}
+
+/* =========================
+   NUBES SUAVES
+   ========================= */
+.clouds {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.cloud {
+  position: absolute;
+  width: 300px;
+  height: 120px;
+  background: rgba(255,255,255,0.08);
+  filter: blur(40px);
+  border-radius: 50%;
+  animation: cloudMove 90s linear infinite;
+}
+
+.cloud:nth-child(1) {
+  top: 15%;
+  left: -30%;
+  animation-duration: 110s;
+}
+
+.cloud:nth-child(2) {
+  top: 35%;
+  left: -40%;
+  animation-duration: 140s;
+}
+
+.cloud:nth-child(3) {
+  top: 55%;
+  left: -50%;
+  animation-duration: 160s;
+}
+
+@keyframes cloudMove {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(160vw);
+  }
+}
